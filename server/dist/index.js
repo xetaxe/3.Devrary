@@ -40,10 +40,11 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 if (process.env.NODE_ENV !== "production") {
     dotenv.config();
-    console.log(process.env);
 }
 //Local imports
-const routes_1 = require("./routes");
+const api_routes_1 = require("./api_routes");
+const categories_1 = require("./api_routes/categories");
+// console.log(CategoryAPI);
 //Initialize app
 const app = (0, express_1.default)();
 //Initialize and connect to database
@@ -57,7 +58,8 @@ connectDB()
     .then(() => console.log("Connected to MongoDB+Mongoose"))
     .catch(error => console.log(error));
 //API routes
-app.use('/api', routes_1.router);
+app.use('/api/home', api_routes_1.router);
+app.use('/api/categories', categories_1.router);
 app.use(express_1.default.static('../client/dist'));
 //Server main endpoints --> used to serve React frontend logic
 app.get('/*', (req, res) => {

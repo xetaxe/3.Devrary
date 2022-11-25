@@ -4,15 +4,17 @@ import mongoose from 'mongoose'
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config()
-  console.log(process.env)
 }
 
 //Local imports
-import {router as homeApi} from './routes'
+import {router as HomeAPI} from './api_routes'
+import {router as CategoriesAPI} from './api_routes/categories'
+
+// console.log(CategoryAPI);
 
 
 //Initialize app
-const app = express()
+const app = express();
 
 
 //Initialize and connect to database
@@ -27,7 +29,8 @@ connectDB()
 
 
 //API routes
-app.use('/api', homeApi)
+app.use('/api/home', HomeAPI)
+app.use('/api/categories', CategoriesAPI)
 
 app.use(express.static('../client/dist'));
 
