@@ -28,25 +28,39 @@ connectDB()
 .catch(error => console.log(error))
 
 
-//API routes
-app.use('/api/home', HomeAPI)
-app.use('/api/categories', CategoriesAPI)
+////////////// MIDDLEWARE
 
+//For testing HTTP req/res cycles
+function logger(req: any, res: any, next: any): void {
+  console.log(req);
+  next();
+}
+app.use(logger);
+
+
+//Standard middleware
 app.use(express.static('../client/dist'));
+app.use(express.json())
+app.use(express.urlencoded())
+
+
+//API routes
+app.use('/api/home', HomeAPI);
+app.use('/api/categories', CategoriesAPI);
+
+
+
 
 
 
 //Server main endpoints --> used to serve React frontend logic
 
 app.get('/*', (req, res) => {
+  //   res.redirect('/'); //OJUUUUUUUUUU
   res.sendFile('/index.html', {root: '../client/dist'})
 })
 
-//A revisar
-// app.get('/*', (req, res) => {
-//   res.redirect('/'); //OJUUUUUUUUUU
-//   res.sendFile('/index.html', {root: '../client/dist'})
-// })
+
 
 
 //Listen app

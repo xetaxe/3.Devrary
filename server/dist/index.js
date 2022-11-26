@@ -57,19 +57,25 @@ function connectDB() {
 connectDB()
     .then(() => console.log("Connected to MongoDB+Mongoose"))
     .catch(error => console.log(error));
+////////////// MIDDLEWARE
+//For testing HTTP req/res cycles
+function logger(req, res, next) {
+    console.log(req);
+    next();
+}
+app.use(logger);
+//Standard middleware
+app.use(express_1.default.static('../client/dist'));
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded());
 //API routes
 app.use('/api/home', api_routes_1.router);
 app.use('/api/categories', categories_1.router);
-app.use(express_1.default.static('../client/dist'));
 //Server main endpoints --> used to serve React frontend logic
 app.get('/*', (req, res) => {
+    //   res.redirect('/'); //OJUUUUUUUUUU
     res.sendFile('/index.html', { root: '../client/dist' });
 });
-//A revisar
-// app.get('/*', (req, res) => {
-//   res.redirect('/'); //OJUUUUUUUUUU
-//   res.sendFile('/index.html', {root: '../client/dist'})
-// })
 //Listen app
 app.listen(process.env.PORT, () => {
     console.log(`Example app listening on port ${process.env.PORT}`);
