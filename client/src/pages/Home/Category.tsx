@@ -1,4 +1,4 @@
-import { FormEvent, FormEventHandler, MouseEventHandler, useState } from "react";
+import { FormEvent, useState } from "react";
 
 
 function Category() {
