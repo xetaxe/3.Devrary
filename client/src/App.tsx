@@ -21,23 +21,11 @@ const routesConfig = [
   //     },
   //   ],
   // },
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/mydevrary",
-    element: <MyDevrary />,
-  },
-  {
-    path: "/notes",
-    element: <Notes />,
-  },
+  { path: "/", element: <Home />, },
+  { path: "/mydevrary", element: <MyDevrary />, },
+  { path: "/notes", element: <Notes />, },
   // TODO --> Add NON-Existent page
-  {
-    path: "*",
-    element: <Notes />,
-  },
+  { path: "*", element: <Notes />, },
 ];
 
 const router = createBrowserRouter(routesConfig);
