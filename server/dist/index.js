@@ -37,6 +37,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const mongoose_1 = __importDefault(require("mongoose"));
 if (process.env.NODE_ENV !== "production") {
     dotenv.config();
@@ -63,8 +64,18 @@ function logger(req, res, next) {
     console.log(req);
     next();
 }
-app.use(logger);
+// app.use(logger);
 //Standard middleware
+const corsOptions = {
+    origin: ["http://127.0.0.1:5173/", "http://localhost:3000"],
+    methods: "GET,PUT,POST,DELETE",
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use((0, cors_1.default)());
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 app.use(express_1.default.static('../client/dist'));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded());

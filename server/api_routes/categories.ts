@@ -26,7 +26,7 @@ router.get('/getCategories', async (req, res) => {
 		const categories = await Category.find(searchCategories);
 		console.log(categories);
 		const sendCategories : string[] = await categories.map(cat => cat.name)
-		res.status(200).send({'categories': sendCategories});
+		res.status(200).send(JSON.stringify({'categories': sendCategories}));
 	} catch {
 		res.redirect('/');
 	}

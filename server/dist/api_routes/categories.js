@@ -39,7 +39,7 @@ router.get('/getCategories', (req, res) => __awaiter(void 0, void 0, void 0, fun
         const categories = yield category_1.Category.find(searchCategories);
         console.log(categories);
         const sendCategories = yield categories.map(cat => cat.name);
-        res.status(200).send({ 'categories': sendCategories });
+        res.status(200).send(JSON.stringify({ 'categories': sendCategories }));
     }
     catch (_c) {
         res.redirect('/');

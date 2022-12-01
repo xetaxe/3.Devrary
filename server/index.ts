@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv'
 import express from 'express'
+import cors from 'cors'
 import mongoose from 'mongoose'
 
 if (process.env.NODE_ENV !== "production") {
@@ -35,10 +36,20 @@ function logger(req: any, res: any, next: any): void {
   console.log(req);
   next();
 }
-app.use(logger);
+// app.use(logger);
 
 
 //Standard middleware
+const corsOptions = {
+  origin: ["http://127.0.0.1:5173/", "http://localhost:3000"],
+  methods: "GET,PUT,POST,DELETE",
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+app.use(cors());
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 app.use(express.static('../client/dist'));
 app.use(express.json())
 app.use(express.urlencoded())
